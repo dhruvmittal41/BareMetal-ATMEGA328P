@@ -6,15 +6,15 @@ AVRDUDE= avrdude
 
 CFLAGS = -mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os -Wall -std=c11
 
-all: blink.hex
+all: multi_blink.hex
 
-blink.elf: blink.c
+multi_blink.elf: multi_blink.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-blink.hex: blink.elf
+multi_blink.hex: multi_blink.elf
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
-flash: blink.hex
+flash: multi_blink.hex
 	$(AVRDUDE) -c arduino -p $(MCU) -P /dev/ttyACM0 -b 115200 -U flash:w:$<:i
 
 clean:
