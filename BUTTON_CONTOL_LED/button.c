@@ -6,7 +6,7 @@ int main(void){
     PORTD |= (1 << PD2);
 
 
-    while(1){
+   while(1){
         if(!(PIND & (1 << PD2))){
             PORTB |= (1 << PB5);
         }

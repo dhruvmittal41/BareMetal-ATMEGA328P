@@ -6,15 +6,15 @@ AVRDUDE= avrdude
 
 CFLAGS = -mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os -Wall -std=c11
 
-all: button.hex
+all: toggle.hex
 
-button.elf: button.c
+toggle.elf: toggle.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-button.hex: button.elf
+toggle.hex: toggle.elf
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
-flash: button.hex
+flash: toggle.hex
 	$(AVRDUDE) -c arduino -p $(MCU) -P /dev/ttyACM0 -b 115200 -U flash:w:$<:i
 
 clean:
