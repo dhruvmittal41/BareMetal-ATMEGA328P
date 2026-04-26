@@ -6,15 +6,15 @@ AVRDUDE= avrdude
 
 CFLAGS = -mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os -Wall -std=c11
 
-all: timer_blink.hex
+all: ISR_blink.hex
 
-timer_blink.elf: timer_blink.c
+ISR_blink.elf: ISR_blink.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-timer_blink.hex: timer_blink.elf
+ISR_blink.hex: ISR_blink.elf
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
-flash: timer_blink.hex
+flash: ISR_blink.hex
 	$(AVRDUDE) -c arduino -p $(MCU) -P /dev/ttyACM0 -b 115200 -U flash:w:$<:i
 
 clean:
