@@ -6,15 +6,15 @@ AVRDUDE= avrdude
 
 CFLAGS = -mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os -Wall -std=c11
 
-all: multi_interrupt.hex
+all: Two_Buttons.hex
 
-multi_interrupt.elf: multi_interrupt.c
+Two_Buttons.elf: Two_Buttons.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-multi_interrupt.hex: multi_interrupt.elf
+Two_Buttons.hex: Two_Buttons.elf
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
-flash: multi_interrupt.hex
+flash: Two_Buttons.hex
 	$(AVRDUDE) -c arduino -p $(MCU) -P /dev/ttyACM0 -b 115200 -U flash:w:$<:i
 
 clean:
