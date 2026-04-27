@@ -6,15 +6,15 @@ AVRDUDE= avrdude
 
 CFLAGS = -mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os -Wall -std=c11
 
-all: ISR_Multiblink.hex
+all: StopWatch_Blink.hex
 
-ISR_Multiblink.elf: ISR_Multiblink.c
+StopWatch_Blink.elf: StopWatch_Blink.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-ISR_Multiblink.hex: ISR_Multiblink.elf
+StopWatch_Blink.hex: StopWatch_Blink.elf
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
-flash: ISR_Multiblink.hex
+flash: StopWatch_Blink.hex
 	$(AVRDUDE) -c arduino -p $(MCU) -P /dev/ttyACM0 -b 115200 -U flash:w:$<:i
 
 clean:

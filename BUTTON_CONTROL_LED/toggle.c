@@ -14,10 +14,8 @@ int main(void){
             toggle = !(toggle);
         }
         if(toggle == 1){
-            PORTB |= (1 << PB5);
-        }
-        else{
-            PORTB &= ~(1 << PB5);
+            PORTB ^= (1 << PB5);
         }
     }
 }
+
