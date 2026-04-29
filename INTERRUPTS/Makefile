@@ -6,15 +6,15 @@ AVRDUDE= avrdude
 
 CFLAGS = -mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os -Wall -std=c11
 
-all: button_press.hex
+all: flag_pattern.hex
 
-button_press.elf: button_press.c
+flag_pattern.elf: flag_pattern.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-button_press.hex: button_press.elf
+flag_pattern.hex: flag_pattern.elf
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
-flash: button_press.hex
+flash: flag_pattern.hex
 	$(AVRDUDE) -c arduino -p $(MCU) -P /dev/ttyACM0 -b 115200 -U flash:w:$<:i
 
 clean:
